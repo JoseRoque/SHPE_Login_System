@@ -11,25 +11,32 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
  * @author UTA CSE JJR
  */
-public class LoginController implements Initializable {
+public class LoginController extends AnchorPane implements Initializable {
     
     @FXML
     private Label label;
+    private Main application;
     
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
+    public void setApp(Main application){
+        this.application = application;
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    } 
     
+    @FXML
+    private void handleButtonAction(ActionEvent event) {
+        System.out.println("You clicked me!");
+        application.userSignUp();
+    }
+        
+      
 }
