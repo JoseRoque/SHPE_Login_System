@@ -18,7 +18,7 @@ public class SqliteConnection {
         
         try{
             Class.forName("org.sqlite.JDBC");
-            Connection myConnection =DriverManager.getConnection("jdbc:sqlite:EmployeeDb.sqlite");
+            Connection myConnection =DriverManager.getConnection("jdbc:sqlite:/Users/JoseRoque/Documents/Student Database/Students.sqlite");
             return myConnection;
         }
         catch(Exception e){

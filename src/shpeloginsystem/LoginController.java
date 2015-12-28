@@ -20,8 +20,9 @@ import javafx.scene.layout.AnchorPane;
 public class LoginController extends AnchorPane implements Initializable {
     
     @FXML
-    private Label label;
+    private Label isConnected;
     private Main application;
+    private Authenticator connectionReady = new Authenticator();
     
     public void setApp(Main application){
         this.application = application;
@@ -29,7 +30,12 @@ public class LoginController extends AnchorPane implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        if(connectionReady.isConnected()){
+            isConnected.setText("Connected"); //label indicates successfulconnection or not
+        }
+        else{
+            isConnected.setText("Not Connected");
+        }
     } 
     
     @FXML
