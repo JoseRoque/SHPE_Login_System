@@ -18,13 +18,13 @@ public class SqliteConnection {
         
         try{
             Class.forName("org.sqlite.JDBC");
-            Connection myConnection =DriverManager.getConnection("jdbc:sqlite:/Users/JoseRoque/Documents/Student Database/Students.sqlite");
+            Connection myConnection =DriverManager.getConnection("jdbc:sqlite:Students.sqlite");
             return myConnection;
         }
         catch(Exception e){
             System.out.println(e);
             return null;
-        }
+        } 
         
     } 
 }
