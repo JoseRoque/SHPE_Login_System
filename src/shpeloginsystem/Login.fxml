@@ -6,9 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="LoginAnchor" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="shpeloginsystem.LoginController">
+<AnchorPane id="LoginAnchor" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shpeloginsystem.LoginController">
     <children>
-        <Button fx:id="button" layoutX="126" layoutY="90" onAction="#handleButtonAction" text="Click Me!" />
-        <Label fx:id="isConnected" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+        <Button fx:id="button" layoutX="203.0" layoutY="143.0" onAction="#handleButtonAction" text="Edit Profile" />
+        <Label fx:id="isConnected" layoutX="117.0" layoutY="115.0" minHeight="16" minWidth="69" />
+      <Button layoutX="126.0" layoutY="143.0" mnemonicParsing="false" onAction="#checkIn" text="Login" />
+      <TextField fx:id="emailCheckIn" layoutX="79.0" layoutY="74.0" />
     </children>
 </AnchorPane>

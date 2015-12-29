@@ -6,11 +6,13 @@
 package shpeloginsystem;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -21,6 +23,8 @@ public class LoginController extends AnchorPane implements Initializable {
     
     @FXML
     private Label isConnected;
+    @FXML
+    private TextField emailCheckIn;
     private Main application;
     private Authenticator connectionReady = new Authenticator();
     
@@ -43,6 +47,22 @@ public class LoginController extends AnchorPane implements Initializable {
         System.out.println("You clicked me!");
         application.userSignUp();
     }
+    
+    @FXML
+    public void checkIn(ActionEvent event){
+        try{
+            if(connectionReady.inDatabase(emailCheckIn.getText())){
+                isConnected.setText("email is in database");
+            }
+            else{
+                isConnected.setText("email is not in database");
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
         
-      
+    }
+    
+          
 }
