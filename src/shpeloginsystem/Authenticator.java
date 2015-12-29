@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Authenticator {
@@ -26,8 +28,7 @@ public class Authenticator {
     //key value pairs are studentID and student email
     public Authenticator(){
         connection = SqliteConnection.connector();
-        if (connection == null) System.exit(1);
-        
+        if (connection == null) System.exit(1);   
     }
     
     public boolean isConnected(){
@@ -53,5 +54,37 @@ public class Authenticator {
         }   
             return false; //if email not on record return false    
     }
+    
+    public boolean inDatabase(String email) throws SQLException{
+    //the email is a student's unique identifier
+        
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String query= "select * from student where email = ?";
+        
+        try{
+            
+            preparedStatement = connection.prepareStatement(query); //takes query string arg
+            //1st arg is for email at 1st index
+            preparedStatement.setString(1, email); 
+            resultSet = preparedStatement.executeQuery();
+            //if we have more than one result
+            if(resultSet.next()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        catch(Exception e){
+          e.printStackTrace();
+          return false;
+        }
+        finally{
+            preparedStatement.close();
+            resultSet.close();
+        }
+    }
+         
     
 }
