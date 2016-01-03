@@ -28,12 +28,11 @@ import javafx.stage.Stage;
 public class Main extends Application {
     
     private Stage primaryStage;
-    private Student loggedUser; //used to declare user in session
+    private boolean studentLoggedIn; //used to declare user in session
     private final double MINIMUM_WINDOW_WIDTH = 390.0;
     private final double MINIMUM_WINDOW_HEIGHT = 500.0;
-    private static ArrayList<Student> students= new ArrayList<>();
 
-    
+    //main function sets up entire application including initial stage with scene
     @Override
     public void start(Stage stage) throws Exception {
         try {
@@ -59,23 +58,20 @@ public class Main extends Application {
         Student newUser = new Student(email);    
     }
     
-    public Student getLoggedUser() {
-        return loggedUser;
+    public boolean getStudentLoggedIn() {
+        return studentLoggedIn;
     }
- 
-    public ArrayList<Student> getStudents(){
-        return students;
+    
+    public void setStudentLoggedIn(){
+        this.studentLoggedIn=true;
     }
-           
-        
-    public boolean userLogging(String email){
-        if (Authenticator.validate(students, email)) {
-            loggedUser = Student.of(email);
-            gotoSignUp();
-            return true;
-        } else {
-            return false;
-        }
+    
+    public void setStudentLoggedOut(){
+        this.studentLoggedIn=false;
+    }
+    
+    void userEditProfile(){
+        gotoEditProfile();
     }
     
     void userLogout(){
@@ -86,11 +82,24 @@ public class Main extends Application {
         gotoSignUp();
     }
     
+    private void gotoEditProfile() {
+        try {
+            EditProfileController profile = (EditProfileController) replaceSceneContent("EditProfile.fxml");
+            //setStudentLoggedIn(); //let user session in progress
+            profile.setApp(this); //setup  used to acccess the loggedUser
+        } catch (Exception ex) {
+            System.out.println("unable to go to edit profile");
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void gotoSignUp() {
         try {
             SignUpController profile = (SignUpController) replaceSceneContent("SignUp.fxml");
+            //setStudentLoggedIn(); //let user session in progress
             profile.setApp(this); //setup  used to acccess the loggedUser
         } catch (Exception ex) {
+            System.out.println("unable to go to sign up");
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -100,8 +109,10 @@ public class Main extends Application {
             LoginController login = (LoginController) replaceSceneContent("Login.fxml");
             login.setApp(this); //setup  used to acccess the loggedUser
         } catch (Exception ex) {
+            System.out.println("unable to go to log in");
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return;
     }
 
     private Initializable replaceSceneContent(String fxml) throws Exception {
@@ -113,12 +124,13 @@ public class Main extends Application {
         try {
             page = (AnchorPane) loader.load(in);
         } finally {
-            in.close();
+            //in.close();
         } 
         Scene scene = new Scene(page, 500, 500);
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
         return (Initializable) loader.getController();
    }
-      
+
+       
 }

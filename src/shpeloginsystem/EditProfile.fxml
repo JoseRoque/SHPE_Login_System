@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="signUpAnchor" prefHeight="360.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shpeloginsystem.SignUpController">
+<AnchorPane fx:id="editProfileAnchor" prefHeight="360.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shpeloginsystem.EditProfileController">
     <children>
       <TextField fx:id="firstName" layoutX="169.0" layoutY="74.0" prefHeight="22.0" prefWidth="206.0" />
       <TextField fx:id="lastName" layoutX="169.0" layoutY="100.0" prefHeight="22.0" prefWidth="206.0" />
@@ -20,7 +20,7 @@
       <Label layoutX="127.0" layoutY="131.0" text="Email" />
       <Label layoutX="125.0" layoutY="157.0" text="Phone" />
       <TextField fx:id="phone" layoutX="169.0" layoutY="152.0" prefHeight="22.0" prefWidth="206.0" />
-      <Button fx:id="saveInfoButton" defaultButton="true" layoutX="326.0" layoutY="278.0" onAction="#saveInfo" text="Enter" />
+      <Button fx:id="saveInfoButton" defaultButton="true" layoutX="326.0" layoutY="278.0" onAction="#updateInfo" text="Enter" />
       <Button fx:id="resetInfoButton" layoutX="272.0" layoutY="278.0" onAction="#resetInfo" text="Reset" />
       <ComboBox fx:id="classification" editable="true" layoutX="169.0" layoutY="209.0" prefHeight="22.0" prefWidth="206.0" promptText="Select">
       <items> 
@@ -36,6 +36,6 @@
       <Label layoutX="86.0" layoutY="214.0" text="Classification" />
       <Label layoutX="125.0" layoutY="185.0" prefHeight="16.0" prefWidth="38.0" text="Major" />
       <TextField fx:id="major" layoutX="169.0" layoutY="180.0" prefHeight="22.0" prefWidth="206.0" />
-      <Label fx:id="isConnectedSignUp" layoutX="407.0" layoutY="330.0" text="Label" />
+      <Label fx:id="isConnectedEdit" layoutX="278.0" layoutY="330.0" prefHeight="16.0" prefWidth="97.0" />
    </children>
 </AnchorPane>

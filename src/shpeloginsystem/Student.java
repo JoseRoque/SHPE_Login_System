@@ -14,35 +14,46 @@ import java.util.Map;
  */
 public class Student {
 
-    private static final Map<String, Student> USERS = new HashMap<String, Student>();
     private String firstName="";
     private String lastName ="";
     private String email = "";
     private String phone = "";
     private String major="";
     private String classification="";
-           
+              
+    public Student(String firstName, String lastName, String email, String phone, String major, String classification){
+        this.firstName= firstName;
+        this.lastName = lastName;
+        this.phone=phone;
+        this.major=major;
+        this.classification= classification;
+    }
+    
+    public Student(String firstName, String lastName, String email, String phone, String major){
+        this(firstName,lastName, email,phone,major, null);   
+    }
+    
+    public Student(String firstName, String lastName, String email, String phone){
+        this(firstName,lastName, email,phone,null, null);   
+    }
+    
+    public Student(String firstName, String lastName, String email){
+        this(firstName,lastName, email,null,null, null);   
+    }
+    
+    public Student(String firstName, String email){
+        this(firstName,null, email,null,null, null);   
+    }
+    
     public Student( String email){
-        this.email=email;  
+        this(null,null, email,null,null, null);   
     }
     
     public Student(){
-        
         //default construcctor
-    }
-    
-   
-    //used to retrive data of particular user
-    public static Student of(String email) {
-        Student user = USERS.get(email);
-        if (user == null) { //if there is no one with that id add that user to the list
-            user = new Student(email);
-            USERS.put(email, user);//create new user??
-        }
-        return user;
-    }
-    
 
+    }
+    
     public String getFirstName() {
         return firstName;
     }
@@ -74,7 +85,6 @@ public class Student {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 
     public String getMajor() {
         return major;

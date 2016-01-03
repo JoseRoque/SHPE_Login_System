@@ -6,11 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="LoginAnchor" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shpeloginsystem.LoginController">
+<AnchorPane fx:id="LoginAnchor" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shpeloginsystem.LoginController">
     <children>
-        <Button fx:id="button" layoutX="203.0" layoutY="143.0" onAction="#handleButtonAction" text="Edit Profile" />
-        <Label fx:id="isConnected" layoutX="117.0" layoutY="115.0" minHeight="16" minWidth="69" />
-      <Button layoutX="126.0" layoutY="143.0" mnemonicParsing="false" onAction="#checkIn" text="Login" />
+        <Button fx:id="signUp" layoutX="41.0" layoutY="143.0" onAction="#signUp" prefHeight="26.0" prefWidth="80.0" text="Sign Up" />
+        <Label fx:id="inDatabase" layoutX="126.0" layoutY="111.0" minHeight="16" minWidth="69" />
+      <Button layoutX="126.0" layoutY="143.0" mnemonicParsing="false" onAction="#checkIn" prefHeight="26.0" prefWidth="80.0" text="Check In" />
       <TextField fx:id="emailCheckIn" layoutX="79.0" layoutY="74.0" />
+      <Label fx:id="isConnectedLogin" layoutX="177.0" layoutY="178.0" prefHeight="16.0" prefWidth="58.0" />
+      <Button layoutX="213.0" layoutY="143.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="26.0" prefWidth="80.0" text="Edit  Info" />
     </children>
 </AnchorPane>

@@ -22,11 +22,13 @@ import javafx.scene.layout.AnchorPane;
 public class LoginController extends AnchorPane implements Initializable {
     
     @FXML
-    private Label isConnected;
+    private Label isConnectedLogin;
+    @FXML
+    private Label inDatabase;
     @FXML
     private TextField emailCheckIn;
-    private Main application;
-    private Authenticator connectionReady = new Authenticator();
+    private Main application; //tied to main function
+    private Authenticator connectionReady = new Authenticator(); //used to perform queries
     
     public void setApp(Main application){
         this.application = application;
@@ -35,33 +37,38 @@ public class LoginController extends AnchorPane implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if(connectionReady.isConnected()){
-            isConnected.setText("Connected"); //label indicates successfulconnection or not
+            isConnectedLogin.setText("Connected"); //label indicates successfulconnection or not
         }
         else{
-            isConnected.setText("Not Connected");
+            isConnectedLogin.setText("Not Connected");
         }
     } 
     
     @FXML
-    private void handleButtonAction(ActionEvent event) {
+    private void editProfile(ActionEvent event) {
+        System.out.println("You clicked me!");
+        application.userEditProfile();
+    }
+    
+    @FXML
+    private void signUp(ActionEvent event) {
         System.out.println("You clicked me!");
         application.userSignUp();
     }
     
     @FXML
-    public void checkIn(ActionEvent event){
+    private void checkIn(ActionEvent event){
         try{
             if(connectionReady.inDatabase(emailCheckIn.getText())){
-                isConnected.setText("email is in database");
+                inDatabase.setText("email is in database");
             }
             else{
-                isConnected.setText("email is not in database");
+                inDatabase.setText("email is not in database");
             }
         }
         catch(SQLException e){
             e.printStackTrace();
-        }
-        
+        }  
     }
     
           

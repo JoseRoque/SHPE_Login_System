@@ -34,30 +34,30 @@ public class SignUpController extends AnchorPane implements Initializable {
      * Initializes the controller class.
      */
     @FXML
-    private TextField textField_FirstName;
+    private Label isConnectedSignUp;
     @FXML
-    private TextField textField_LastName;
+    private TextField firstName;
     @FXML
-    private TextField textField_Email;
+    private TextField lastName;
     @FXML
-    private TextField textField_Phone;
+    private TextField email;
     @FXML
-    private TextField textField_StudentID;
+    private TextField phone;
     @FXML 
-    private TextField textField_Major;
+    private TextField major;
     @FXML 
-    private ComboBox comboBox_Classification;
-    @FXML
-    private Button button_Save;
-    @FXML
-    private Button button_Reset;
+    private ComboBox classification;
     @FXML
     private Hyperlink logout;
+    
     private Main application;
+    
+    private Authenticator connectionReady = new Authenticator(); //used to perform queries
+
     
     public void setApp(Main application){
         this.application = application;
-        //User loggedUser = application.getLoggedUser();
+        //User loggedStudent = application.getLoggedStudent();
         //user.setText(loggedUser.getId());
         //email.setText(loggedUser.getEmail());
         //phone.setText(loggedUser.getPhone());
@@ -68,8 +68,14 @@ public class SignUpController extends AnchorPane implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
+    public void initialize(URL url, ResourceBundle rb) {
+        if(connectionReady.isConnected()){
+            isConnectedSignUp.setText("Connected"); //label indicates successfulconnection or not
+        }
+        else{
+            isConnectedSignUp.setText("Not Connected");
+        }
+    } 
     
     @FXML
     public void processLogout(ActionEvent event) {
@@ -83,40 +89,69 @@ public class SignUpController extends AnchorPane implements Initializable {
     }
     
     @FXML
-    public void saveInfo(ActionEvent event) {
+    private void saveInfo(ActionEvent event) {
+        /**
+        public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+        public static boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
+        return matcher.find();
+}
+        **/ 
+        
+        /**
         if (application == null){
             // We are running in isolated FXML, possibly in Scene Builder.
             // NO-OP.
             return;
         }
 
-        if(!(Authenticator.validate(application.getStudents(),textField_Email.getText()))){
+        if(!(Authenticator.validate(application.getStudents(),email.getText()))){
         
             Student loggedUser = new Student();
-            loggedUser.setFirstName(textField_FirstName.getText());
-            loggedUser.setLastName(textField_LastName.getText());
-            loggedUser.setEmail(textField_Email.getText());
-            loggedUser.setPhone(textField_Phone.getText());
-            loggedUser.setMajor(textField_Major.getText());
-            loggedUser.setClassification(comboBox_Classification.getValue().toString());
+            loggedUser.setFirstName(firstName.getText());
+            loggedUser.setLastName(lastName.getText());
+            loggedUser.setEmail(email.getText());
+            loggedUser.setPhone(phone.getText());
+            loggedUser.setMajor(major.getText());
+            loggedUser.setClassification(classification.getValue().toString());
         }
         else{
             System.out.println("That student id/email already taken");
         }
+        **/
+        
+        System.out.println("clicked the save info button");
     }
     //if reset button is pressed
-    
+    /**
+     * Resets the information present in the textfields of signup scene
+     * @param event 
+     */
     @FXML
-    public void resetInfo(ActionEvent event){
+    private void resetInfo(ActionEvent event){
+        System.out.println("clicked the reset info button");
+
         if (application == null){
+            System.out.println("application is null");
             return;
         }
-        textField_FirstName.setText(" ");
-        textField_LastName.setText(" ");
-        textField_Email.setText(" ");
-        textField_Phone.setText(" ");
-        textField_Major.setText(" ");
-        comboBox_Classification.setValue(" ");
+        
+        firstName.setText(" ");
+        lastName.setText(" ");
+        email.setText(" ");
+        phone.setText(" ");
+        major.setText(" ");
+        classification.setValue(classification.getItems().get(0));
+    } 
+    
+    @FXML
+    public void retrieveUserInfo(){
+     //retirves the data stored for a particualr user from database   
+        
+    
     }
     
+ 
 }
