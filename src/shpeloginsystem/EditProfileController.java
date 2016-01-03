@@ -39,10 +39,15 @@ public class EditProfileController extends AnchorPane implements Initializable {
     private Label isConnectedEdit;
     private Main application;
     private Authenticator connectionReady = new Authenticator();
+    
+    private Student studentLoggedIn=null;
   
     
     public void setApp(Main application){
         this.application = application;
+        //initialize called before setup
+        retrieveUserInfo();
+           
     }
     
     @Override
@@ -54,7 +59,7 @@ public class EditProfileController extends AnchorPane implements Initializable {
         else{
             isConnectedEdit.setText("Not Connected");
         }
-         
+          
     } 
 
     @FXML
@@ -67,7 +72,7 @@ public class EditProfileController extends AnchorPane implements Initializable {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
         return matcher.find();
         }
-        **/ 
+        **/
         
         System.out.println("clicked the update info button");
     }
@@ -94,22 +99,15 @@ public class EditProfileController extends AnchorPane implements Initializable {
     } 
     
     @FXML
-    public void retrieveUserInfo(){
-     //retirves the data stored for a particualr user from database   
-     /**
-        try{
-            if(connectionReady.inDatabase(email.getText())){
-                inDatabase.setText("email is in database");
-            }
-            else{
-                inDatabase.setText("email is not in database");
-            }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }     
-     
-     **/
-     
+    private void retrieveUserInfo(){
+        studentLoggedIn = application.getLoggedStudent();
+       
+        firstName.setText(studentLoggedIn.getFirstName());
+        lastName.setText(studentLoggedIn.getLastName());
+        email.setText(studentLoggedIn.getEmail());
+        phone.setText(studentLoggedIn.getPhone());
+        major.setText(studentLoggedIn.getMajor());
+        //OMITTED
+        //classification.setValue(studentLoggedIn.getClassification());
     }
 }

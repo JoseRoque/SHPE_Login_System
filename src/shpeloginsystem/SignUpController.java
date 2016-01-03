@@ -6,6 +6,7 @@
 package shpeloginsystem;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -78,51 +79,34 @@ public class SignUpController extends AnchorPane implements Initializable {
     } 
     
     @FXML
-    public void processLogout(ActionEvent event) {
+    public void processLogIn(ActionEvent event) {
         if (application == null){
             // We are running in isolated FXML, possibly in Scene Builder.
             // NO-OP.
             return;
         }
         
-        application.userLogout();
+        application.userLogIn();
     }
     
     @FXML
-    private void saveInfo(ActionEvent event) {
-        /**
-        public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
-        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
-        public static boolean validate(String emailStr) {
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
-        return matcher.find();
-}
-        **/ 
-        
-        /**
-        if (application == null){
-            // We are running in isolated FXML, possibly in Scene Builder.
-            // NO-OP.
-            return;
-        }
-
-        if(!(Authenticator.validate(application.getStudents(),email.getText()))){
-        
-            Student loggedUser = new Student();
-            loggedUser.setFirstName(firstName.getText());
-            loggedUser.setLastName(lastName.getText());
-            loggedUser.setEmail(email.getText());
-            loggedUser.setPhone(phone.getText());
-            loggedUser.setMajor(major.getText());
-            loggedUser.setClassification(classification.getValue().toString());
+    private void saveInfo(ActionEvent event) throws SQLException {
+        System.out.println("clicked the save info button");
+        //if valid email address is entered and the email is not already in database
+        if(Authenticator.validEmail(email.getText()) && !(connectionReady.inDatabase(email.getText())) ){
+            //if valid email address
+            System.out.println("The email in save info is: " + email.getText());
+            Student student = new Student(firstName.getText(),lastName.getText(),email.getText(),phone.getText(),major.getText(),classification.getValue().toString());
+            isConnectedSignUp.setText("Valid email");
+            connectionReady.saveUserInfo(student);
+            
         }
         else{
-            System.out.println("That student id/email already taken");
+            
+            isConnectedSignUp.setText("Invalid email");
+            
         }
-        **/
-        
-        System.out.println("clicked the save info button");
+   
     }
     //if reset button is pressed
     /**
@@ -138,20 +122,14 @@ public class SignUpController extends AnchorPane implements Initializable {
             return;
         }
         
-        firstName.setText(" ");
-        lastName.setText(" ");
-        email.setText(" ");
-        phone.setText(" ");
-        major.setText(" ");
+        firstName.setText("");
+        lastName.setText("");
+        email.setText("");
+        phone.setText("");
+        major.setText("");
         classification.setValue(classification.getItems().get(0));
     } 
     
-    @FXML
-    public void retrieveUserInfo(){
-     //retirves the data stored for a particualr user from database   
-        
-    
-    }
     
  
 }

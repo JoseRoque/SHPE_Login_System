@@ -27,6 +27,7 @@ public class LoginController extends AnchorPane implements Initializable {
     private Label inDatabase;
     @FXML
     private TextField emailCheckIn;
+    
     private Main application; //tied to main function
     private Authenticator connectionReady = new Authenticator(); //used to perform queries
     
@@ -46,13 +47,24 @@ public class LoginController extends AnchorPane implements Initializable {
     
     @FXML
     private void editProfile(ActionEvent event) {
-        System.out.println("You clicked me!");
-        application.userEditProfile();
+        System.out.println("You clicked edit profile button!");
+        try{
+            if(connectionReady.inDatabase(emailCheckIn.getText())){
+                
+                application.setLoggedStudent(connectionReady.retrieveDBInfo(emailCheckIn.getText()));
+                //edit users profile
+                application.userEditProfile();
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }  
+        
     }
     
     @FXML
     private void signUp(ActionEvent event) {
-        System.out.println("You clicked me!");
+        System.out.println("You clicked sign up button");
         application.userSignUp();
     }
     

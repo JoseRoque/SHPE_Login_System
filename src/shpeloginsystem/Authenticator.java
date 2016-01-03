@@ -17,6 +17,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Authenticator {
     
@@ -29,6 +31,10 @@ public class Authenticator {
     private static String classification;
     private static Student loggedInStudent;
     
+    //regular expression checking for @ sign in email address
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]", Pattern.CASE_INSENSITIVE);
+
     private Connection connection; //used to verify connectivity to database when authenticating
 
     //key is student email
@@ -94,7 +100,6 @@ public class Authenticator {
         }
     }
     
-    ////////////////////////////////////////////////////////////////////////////////////
     public Student retrieveDBInfo(String email) throws SQLException{
     //the email is a student's unique identifier (KEY)
         
@@ -133,8 +138,41 @@ public class Authenticator {
         }
     }
     
-    
-    
-         
-   ///////////////////////////////////////////////////////////////////////////////////// 
+    public void saveUserInfo(Student student) throws SQLException{
+        PreparedStatement preparedStatement = null;
+        boolean result = false;
+        String query= "insert or ignore into student "+ 
+        "(email,first_name,last_name,phone,major,classification) "+
+        "values (?,?,?,?,?,?);";
+                
+        System.out.println(query);
+        System.out.println(student.getEmail());
+        
+        try{  
+            preparedStatement = connection.prepareStatement(query); //takes query string arg
+            preparedStatement.setString(1, student.getEmail());
+            preparedStatement.setString(2, student.getFirstName());
+            preparedStatement.setString(3, student.getLastName());
+            preparedStatement.setString(4, student.getPhone());
+            preparedStatement.setString(5, student.getMajor());
+            preparedStatement.setString(6, student.getClassification());
+
+            result = preparedStatement.execute();
+            //if we have more than one result
+            if(result == true){
+                System.out.println("Save Successful");
+            }
+            preparedStatement.close();
+        }
+        catch(Exception e){
+          e.printStackTrace();
+          System.out.println("Save Unsuccessful");
+        }
+    }
+     
+    public static boolean validEmail(String email) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
+        return matcher.find();
+    }
+           
 }

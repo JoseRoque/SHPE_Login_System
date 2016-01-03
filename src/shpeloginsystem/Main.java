@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     
     private Stage primaryStage;
+    private Student loggedInStudent=null;
     private boolean studentLoggedIn; //used to declare user in session
     private final double MINIMUM_WINDOW_WIDTH = 390.0;
     private final double MINIMUM_WINDOW_HEIGHT = 500.0;
@@ -54,8 +55,11 @@ public class Main extends Application {
         launch(args);
     }
     
-    private void setLoggedUser(String email){
-        Student newUser = new Student(email);    
+    public void setLoggedStudent(Student student){
+        this.loggedInStudent = student;    
+    }
+    public Student getLoggedStudent(){
+        return loggedInStudent;
     }
     
     public boolean getStudentLoggedIn() {
@@ -74,7 +78,7 @@ public class Main extends Application {
         gotoEditProfile();
     }
     
-    void userLogout(){
+    void userLogIn(){
         gotoLogin();
     }
     
