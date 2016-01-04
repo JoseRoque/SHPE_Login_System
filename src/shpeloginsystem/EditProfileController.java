@@ -28,8 +28,6 @@ public class EditProfileController extends AnchorPane implements Initializable {
     @FXML
     private TextField lastName;
     @FXML
-    private TextField email;
-    @FXML
     private TextField phone;
     @FXML 
     private TextField major;
@@ -47,34 +45,33 @@ public class EditProfileController extends AnchorPane implements Initializable {
         this.application = application;
         //initialize called before setup
         retrieveUserInfo();
+        isConnectedEdit.setText("Logged in as: "+ application.getLoggedStudent().getEmail());
            
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+    /**    
         if(connectionReady.isConnected()){
             isConnectedEdit.setText("Connected"); //label indicates successfulconnection or not
         }
         else{
             isConnectedEdit.setText("Not Connected");
         }
-          
+    **/      
     } 
 
     @FXML
-    private void updateInfo(ActionEvent event) {
-        /**
-        public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
-        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
-        public static boolean validate(String emailStr) {
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
-        return matcher.find();
-        }
-        **/
-        
+    private void updateInfo(ActionEvent event) throws SQLException {
         System.out.println("clicked the update info button");
+        studentLoggedIn = application.getLoggedStudent();
+        studentLoggedIn.setFirstName(firstName.getText());
+        studentLoggedIn.setLastName(lastName.getText());
+        studentLoggedIn.setPhone(phone.getText());
+        studentLoggedIn.setMajor(major.getText());
+        studentLoggedIn.setClassification(classification.getValue().toString());
+        connectionReady.updateUserInfo(studentLoggedIn);
+        
     }
     //if reset button is pressed
     /**
@@ -92,7 +89,6 @@ public class EditProfileController extends AnchorPane implements Initializable {
         
         firstName.setText(" ");
         lastName.setText(" ");
-        email.setText(" ");
         phone.setText(" ");
         major.setText(" ");
         classification.setValue(classification.getItems().get(0));
@@ -104,10 +100,9 @@ public class EditProfileController extends AnchorPane implements Initializable {
        
         firstName.setText(studentLoggedIn.getFirstName());
         lastName.setText(studentLoggedIn.getLastName());
-        email.setText(studentLoggedIn.getEmail());
         phone.setText(studentLoggedIn.getPhone());
         major.setText(studentLoggedIn.getMajor());
         //OMITTED
-        //classification.setValue(studentLoggedIn.getClassification());
+        classification.setValue(studentLoggedIn.getClassification());
     }
 }

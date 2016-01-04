@@ -76,6 +76,7 @@ public class Authenticator {
             //if we have more than one result
             if(resultSet.next()){
                 //return all user data
+                
                 System.out.println(resultSet.getString("first_name"));
                 System.out.println(resultSet.getString("last_name"));
                 System.out.println(resultSet.getString("phone"));
@@ -161,6 +162,46 @@ public class Authenticator {
             //if we have more than one result
             if(result == true){
                 System.out.println("Save Successful");
+            }
+            preparedStatement.close();
+        }
+        catch(Exception e){
+          e.printStackTrace();
+          System.out.println("Save Unsuccessful");
+        }
+    }
+    
+    public void updateUserInfo(Student student) throws SQLException{
+        PreparedStatement preparedStatement = null;
+        boolean result = false;
+        /**String query= "UPDATE student SET "
+                + "first name ="+ student.getFirstName() + "," 
+                + "last_name = " + student.getLastName() + "," 
+                + "phone =" + student.getPhone() + ","
+                + "email=" + student.getEmail()+ ","
+                + "major=" + student.getMajor() + ","
+                + "classification=" + student.getClassification()
+                + " WHERE email ="+ student.getEmail() + ";";
+        **/
+        String query= "UPDATE student SET first_name =?,last_name =?,phone =?,major=?, classification=? WHERE email = ?;";
+        
+        System.out.println(query);
+        System.out.println(student.getEmail());
+        
+        try{  
+            preparedStatement = connection.prepareStatement(query); //takes query string arg
+            preparedStatement.setString(1, student.getFirstName());
+            preparedStatement.setString(2, student.getLastName());
+            preparedStatement.setString(3, student.getPhone());
+            preparedStatement.setString(4, student.getMajor());
+            preparedStatement.setString(5, student.getClassification());
+            preparedStatement.setString(6, student.getEmail());
+
+
+            result = preparedStatement.execute();
+            //if we have more than one result
+            if(result == true){
+                System.out.println("Update Successful");
             }
             preparedStatement.close();
         }

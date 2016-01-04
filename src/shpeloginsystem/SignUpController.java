@@ -58,14 +58,7 @@ public class SignUpController extends AnchorPane implements Initializable {
     
     public void setApp(Main application){
         this.application = application;
-        //User loggedStudent = application.getLoggedStudent();
-        //user.setText(loggedUser.getId());
-        //email.setText(loggedUser.getEmail());
-        //phone.setText(loggedUser.getPhone());
-        //if (loggedUser.getAddress() != null) {
-        //    address.setText(loggedUser.getAddress());
-        //}
-        //success.setOpacity(0);
+
     }
 
     @Override
@@ -98,13 +91,10 @@ public class SignUpController extends AnchorPane implements Initializable {
             System.out.println("The email in save info is: " + email.getText());
             Student student = new Student(firstName.getText(),lastName.getText(),email.getText(),phone.getText(),major.getText(),classification.getValue().toString());
             isConnectedSignUp.setText("Valid email");
-            connectionReady.saveUserInfo(student);
-            
+            connectionReady.updateUserInfo(student);   
         }
-        else{
-            
+        else{    
             isConnectedSignUp.setText("Invalid email");
-            
         }
    
     }
