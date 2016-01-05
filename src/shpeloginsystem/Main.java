@@ -107,6 +107,17 @@ public class Main extends Application {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private void gotoLoginTable() {
+        try {
+            LoginTableController profile = (LoginTableController) replaceSceneContent("LoginTable.fxml");
+            //setStudentLoggedIn(); //let user session in progress
+            profile.setApp(this); //setup  used to acccess the loggedUser
+        } catch (Exception ex) {
+            System.out.println("unable to go to sign up");
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void gotoLogin() {
         try {
