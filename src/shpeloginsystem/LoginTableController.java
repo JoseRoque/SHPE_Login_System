@@ -17,12 +17,17 @@ import javafx.scene.control.TableView;
  */
 public class LoginTableController extends TableView implements Initializable{
 
+    private Main application;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        
+    }  
+    
+    public void setApp(Main application){
+        this.application = application;
+    }
     
 }
