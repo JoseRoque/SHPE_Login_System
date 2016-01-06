@@ -19,6 +19,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Authenticator {
     
@@ -215,5 +217,39 @@ public class Authenticator {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
         return matcher.find();
     }
+    
+    public  ObservableList<Student> retrieveAllData(){
+        ObservableList<Student> students = FXCollections.observableArrayList();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet=null;
+        String query= "select * from student";//retrieve all data
+        
+        try{  
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String email = resultSet.getString("email");
+                String phone = resultSet.getString("phone");
+                String major = resultSet.getString("major");
+                String classification = resultSet.getString("classification");
+                
+                Student newStudent = new Student(firstName,  lastName,  email,  phone,  major,  classification);
+                students.add(newStudent);
+                
+                System.out.println(firstName);
+            }  
+            
+            preparedStatement.close();
+        }
+        catch(Exception e){
+          e.printStackTrace();
+          System.out.println("Retrieval of all data was unsuccessful");
+        }
+        return students;
+    }
+    
            
 }
