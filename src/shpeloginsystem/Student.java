@@ -52,7 +52,6 @@ public class Student {
     
     public Student(){
         //default construcctor
-
     }
     
     public String getFirstName() {
