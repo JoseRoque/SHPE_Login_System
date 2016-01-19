@@ -10,7 +10,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shpeloginsystem.LoginTableController">
    <children>
       <HBox layoutX="-3.0" prefHeight="58.0" prefWidth="607.0">
@@ -45,7 +44,7 @@
          </children>
       </HBox>
       <HBox layoutX="-5.0" layoutY="350.0" prefHeight="50.0" prefWidth="607.0" />
-      <TableView fx:id="studentTable" layoutX="3.0" layoutY="57.0" prefHeight="287.0" prefWidth="594.0">
+      <TableView fx:id="studentTable" layoutX="4.0" layoutY="57.0" onMouseClicked="#tableRowSelected" prefHeight="287.0" prefWidth="594.0">
         <columns>
           <TableColumn fx:id="firstNameCol" prefWidth="95.0" text="First Name" />
           <TableColumn fx:id="lastNameCol" prefWidth="95.0" text="Last Name" />
@@ -62,19 +61,24 @@
                   <Insets bottom="15.0" left="30.0" right="15.0" top="20.0" />
                </HBox.margin>
             </Label>
-            <Hyperlink fx:id="signUpLink" text="Sign Up">
+            <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#goToSignUp" text="Sign Up">
                <HBox.margin>
                   <Insets bottom="15.0" right="15.0" top="15.0" />
                </HBox.margin>
-            </Hyperlink>
-            <Button fx:id="editButton" mnemonicParsing="false" text="Edit">
+            </Button>
+            <Label fx:id="messageLabel" text="Select A Row To Sign In or Edit">
                <HBox.margin>
-                  <Insets bottom="15.0" left="215.0" right="15.0" top="15.0" />
+                  <Insets bottom="15.0" right="15.0" top="20.0" />
+               </HBox.margin>
+            </Label>
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#goToEdit" text="Edit">
+               <HBox.margin>
+                  <Insets bottom="15.0" right="15.0" top="15.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="signInButton" mnemonicParsing="false" text="Sign In">
+            <Button fx:id="signInButton" mnemonicParsing="false" onAction="#goToSignIn" text="Sign In">
                <HBox.margin>
-                  <Insets top="15.0" />
+                  <Insets bottom="15.0" top="15.0" />
                </HBox.margin>
             </Button>
          </children>

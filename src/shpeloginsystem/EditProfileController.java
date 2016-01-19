@@ -22,25 +22,17 @@ import javafx.scene.layout.AnchorPane;
  * @author JoseRoque
  */
 public class EditProfileController extends AnchorPane implements Initializable {
-
-    @FXML
-    private TextField firstName;
-    @FXML
-    private TextField lastName;
-    @FXML
-    private TextField phone;
-    @FXML 
-    private TextField major;
-    @FXML 
-    private ComboBox classification;
-    @FXML
-    private Label isConnectedEdit;
+   
+    @FXML private TextField firstName;
+    @FXML private TextField lastName;
+    @FXML private TextField phone;
+    @FXML private TextField major;
+    @FXML private ComboBox classification;
+    @FXML private Label isConnectedEdit;
     private Main application;
     private Authenticator connectionReady = new Authenticator();
-    
     private Student studentLoggedIn=null;
   
-    
     public void setApp(Main application){
         this.application = application;
         //initialize called before setup
@@ -51,14 +43,13 @@ public class EditProfileController extends AnchorPane implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    /**    
+       
         if(connectionReady.isConnected()){
             isConnectedEdit.setText("Connected"); //label indicates successfulconnection or not
         }
         else{
             isConnectedEdit.setText("Not Connected");
-        }
-    **/      
+        }     
     } 
 
     @FXML
@@ -71,7 +62,7 @@ public class EditProfileController extends AnchorPane implements Initializable {
         studentLoggedIn.setMajor(major.getText());
         studentLoggedIn.setClassification(classification.getValue().toString());
         connectionReady.updateUserInfo(studentLoggedIn);
-        
+        application.userLoginTable();
     }
     //if reset button is pressed
     /**
@@ -80,13 +71,13 @@ public class EditProfileController extends AnchorPane implements Initializable {
      */
     @FXML
     private void resetInfo(ActionEvent event){
+        //resets everything minus the email which is required for a valid entry 
         System.out.println("clicked the reset info button");
 
         if (application == null){
             System.out.println("application is null");
             return;
         }
-        
         firstName.setText(" ");
         lastName.setText(" ");
         phone.setText(" ");
@@ -97,12 +88,16 @@ public class EditProfileController extends AnchorPane implements Initializable {
     @FXML
     private void retrieveUserInfo(){
         studentLoggedIn = application.getLoggedStudent();
-       
         firstName.setText(studentLoggedIn.getFirstName());
         lastName.setText(studentLoggedIn.getLastName());
         phone.setText(studentLoggedIn.getPhone());
         major.setText(studentLoggedIn.getMajor());
         //OMITTED
         classification.setValue(studentLoggedIn.getClassification());
+    }
+    
+    @FXML
+    private void cancelEditProfile(){
+        application.userLoginTable();
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.collections.*?>
 <?import javafx.collections.FXCollections ?>
 <?import java.lang.*?>
@@ -10,7 +11,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="editProfileAnchor" prefHeight="360.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shpeloginsystem.EditProfileController">
+<AnchorPane fx:id="editProfileAnchor" prefHeight="360.0" prefWidth="480.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shpeloginsystem.EditProfileController">
+    <stylesheets>
+        <URL value="@editprofile.css" />
+    </stylesheets>
     <children>
       <TextField fx:id="firstName" layoutX="169.0" layoutY="91.0" prefHeight="22.0" prefWidth="206.0" />
       <TextField fx:id="lastName" layoutX="169.0" layoutY="120.0" prefHeight="22.0" prefWidth="206.0" />
@@ -19,7 +23,7 @@
       <Label layoutX="125.0" layoutY="157.0" text="Phone" />
       <TextField fx:id="phone" layoutX="169.0" layoutY="152.0" prefHeight="22.0" prefWidth="206.0" />
       <Button fx:id="saveInfoButton" defaultButton="true" layoutX="326.0" layoutY="278.0" onAction="#updateInfo" text="Update" />
-      <Button fx:id="resetInfoButton" layoutX="272.0" layoutY="278.0" onAction="#resetInfo" text="Reset" />
+      <Button fx:id="resetInfoButton" layoutX="108.0" layoutY="278.0" onAction="#resetInfo" text="Reset" />
       <ComboBox fx:id="classification" editable="true" layoutX="169.0" layoutY="209.0" prefHeight="22.0" prefWidth="206.0" promptText="Select">
       <items> 
         <FXCollections fx:factory="observableArrayList">
@@ -35,5 +39,11 @@
       <Label layoutX="125.0" layoutY="185.0" prefHeight="16.0" prefWidth="38.0" text="Major" />
       <TextField fx:id="major" layoutX="169.0" layoutY="180.0" prefHeight="22.0" prefWidth="206.0" />
       <Label fx:id="isConnectedEdit" layoutX="84.0" layoutY="43.0" prefHeight="16.0" prefWidth="305.0" />
+      <Button fx:id="cancelButton" cancelButton="true" layoutX="261.0" layoutY="278.0" mnemonicParsing="false" onAction="#cancelEditProfile" text="Cancel" />
+      <Label layoutX="388.0" layoutY="157.0" text="Ex: 2147775555">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

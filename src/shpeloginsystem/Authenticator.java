@@ -199,7 +199,6 @@ public class Authenticator {
             preparedStatement.setString(5, student.getClassification());
             preparedStatement.setString(6, student.getEmail());
 
-
             result = preparedStatement.execute();
             //if we have more than one result
             if(result == true){
@@ -239,8 +238,8 @@ public class Authenticator {
                 Student newStudent = new Student(firstName,  lastName,  email,  phone,  major,  classification);
                 students.add(newStudent);
                 
-                System.out.println(firstName);
             }  
+            System.out.println("retrieval of all data successful");
             
             preparedStatement.close();
         }
@@ -249,6 +248,27 @@ public class Authenticator {
           System.out.println("Retrieval of all data was unsuccessful");
         }
         return students;
+    }
+    //increments the points of some logged in user
+    public void incrementPoints(String userEmail) throws SQLException{
+        PreparedStatement preparedStatement = null;
+        boolean result = false;
+        //System.out.println("passed in string: "+userEmail);
+        String query= "UPDATE student set points = points + 1 WHERE email = ?";
+        try{
+            preparedStatement = connection.prepareStatement(query); //takes query string arg
+            preparedStatement.setString(1, userEmail);
+            result=preparedStatement.execute();
+            System.out.println("incrementing successful");
+            
+            ///////
+            preparedStatement.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Couldn't increment points for user");
+        }
+
     }
     
            

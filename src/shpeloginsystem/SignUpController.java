@@ -34,31 +34,21 @@ public class SignUpController extends AnchorPane implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @FXML
-    private Label isConnectedSignUp;
-    @FXML
-    private TextField firstName;
-    @FXML
-    private TextField lastName;
-    @FXML
-    private TextField email;
-    @FXML
-    private TextField phone;
-    @FXML 
-    private TextField major;
-    @FXML 
-    private ComboBox classification;
-    @FXML
-    private Hyperlink logout;
+    @FXML private Label isConnectedSignUp;
+    @FXML private TextField firstName;
+    @FXML private TextField lastName;
+    @FXML private TextField email;
+    @FXML private TextField phone;
+    @FXML private TextField major;
+    @FXML private ComboBox classification;
+    @FXML private Hyperlink logout;
     
     private Main application;
-    
     private Authenticator connectionReady = new Authenticator(); //used to perform queries
 
-    
     public void setApp(Main application){
         this.application = application;
-
+        initSignUp();
     }
 
     @Override
@@ -77,8 +67,7 @@ public class SignUpController extends AnchorPane implements Initializable {
             // We are running in isolated FXML, possibly in Scene Builder.
             // NO-OP.
             return;
-        }
-        
+        }    
         application.userLogIn();
     }
     
@@ -91,13 +80,14 @@ public class SignUpController extends AnchorPane implements Initializable {
             System.out.println("The email in save info is: " + email.getText());
             Student student = new Student(firstName.getText(),lastName.getText(),email.getText(),phone.getText(),major.getText(),classification.getValue().toString());
             isConnectedSignUp.setText("Valid email");
-            connectionReady.updateUserInfo(student);   
+            connectionReady.saveUserInfo(student);   
         }
         else{    
             isConnectedSignUp.setText("Invalid email");
         }
-   
+        application.userLoginTable();
     }
+    
     //if reset button is pressed
     /**
      * Resets the information present in the textfields of signup scene
@@ -110,8 +100,7 @@ public class SignUpController extends AnchorPane implements Initializable {
         if (application == null){
             System.out.println("application is null");
             return;
-        }
-        
+        }  
         firstName.setText("");
         lastName.setText("");
         email.setText("");
@@ -120,6 +109,18 @@ public class SignUpController extends AnchorPane implements Initializable {
         classification.setValue(classification.getItems().get(0));
     } 
     
+    @FXML
+    private void cancelSignUp(){
+        application.userLoginTable();
+    }
     
- 
+    private void initSignUp(){
+        firstName.setText("");
+        lastName.setText("");
+        email.setText("");
+        phone.setText("");
+        major.setText("");
+        classification.setValue(classification.getItems().get(0));
+    }
+
 }

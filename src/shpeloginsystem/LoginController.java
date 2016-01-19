@@ -21,12 +21,9 @@ import javafx.scene.layout.AnchorPane;
  */
 public class LoginController extends AnchorPane implements Initializable {
     
-    @FXML
-    private Label isConnectedLogin;
-    @FXML
-    private Label inDatabase;
-    @FXML
-    private TextField emailCheckIn;
+    @FXML private Label isConnectedLogin;
+    @FXML private Label inDatabase;
+    @FXML private TextField emailCheckIn;
     
     private Main application; //tied to main function
     private Authenticator connectionReady = new Authenticator(); //used to perform queries
